@@ -1,9 +1,8 @@
-/**
- * Unoptimised solution using HashMap
- * 
- * URL: https://leetcode.com/problems/linked-list-cycle-ii
- */
+### LeetCode Problem Link: [142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii)
 
+### Unoptimised Solution
+
+```java
 public class Solution {
 
     public ListNode detectCycle(ListNode head) {
@@ -19,10 +18,17 @@ public class Solution {
         return null;
     }
 }
+```
 
-/**
- * Optimised using fast and slow pointer (Floyd's Cycle Detection Algorithm)
- */
+#### Time Complexity: `O(N)`, N is the length of the linked list.
+
+#### Space Compelxity: `O(N)`, we utilised a map where we stored all the nodes in the map.
+
+<hr>
+
+### Optimised using fast and slow pointer (Floyd's Cycle Detection Algorithm)
+
+```java
 public class Solution {
 
     public ListNode detectCycle(ListNode head) {
@@ -51,3 +57,8 @@ public class Solution {
         return slow;
     }
 }
+```
+
+### Time Complexity: `O(N)`, N is the lengthof the linked list.
+
+### Space Compelxity: `O(1)`

@@ -1,8 +1,8 @@
-/**
- * URL: https://leetcode.com/problems/linked-list-cycle
- * 
- * Unoptimised
- */
+### LeetCode Problem Link: [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle)
+
+### Unoptimised Solution
+
+```java
 public class Solution {
 
     public boolean hasCycle(ListNode head) {
@@ -18,11 +18,17 @@ public class Solution {
         return false;
     }
 }
+```
 
-/**
- * Optimised using fast and slow pointer
- */
+#### Time Complexity: `O(N)`, N is the length of the linked list.
 
+#### Space Compelxity: `O(N)`, we utilised a map where we stored all the nodes in the map.
+
+<hr>
+
+### Optimised using fast and slow pointer
+
+```java
 public class Solution {
 
     public boolean hasCycle(ListNode head) {
@@ -39,4 +45,10 @@ public class Solution {
 
         return false;
     }
+
 }
+```
+
+### Time Complexity: `O(N)`, N is the lengthof the linked list.
+
+### Space Compelxity: `O(1)`
