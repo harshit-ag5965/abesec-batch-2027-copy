@@ -23,3 +23,11 @@ Make changes in `script` tag in `package.json`
 ```
 
 Build your project using `npx run build` and for running use `npm start`
+
+<hr>
+
+In case you want to run this program only.
+
+Run `npm install`
+Run `npm run build`
+Run `npm start`
