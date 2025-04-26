@@ -1,4 +1,4 @@
-function validateFile(fileName: string) {
+function validateFile(fileName) {
     if(fileName.endsWith('.jpg')) return true;
 
 
