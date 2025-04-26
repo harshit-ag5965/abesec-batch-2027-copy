@@ -1,6 +1,7 @@
 import { Account } from "./account";
 import { Bank } from "./bank";
 import { FixedDepositAccount } from "./fixed-deposit-account";
+import { SavingsAccount } from "./savings-account";
 
 var pnbBank: Bank = new Bank();
 var account: Account = pnbBank.createAccount("John Doe", "SAVINGS");
