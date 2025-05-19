@@ -1,4 +1,30 @@
+import { useEffect, useState } from 'react';
+
 function Header() {
+  // let btnValue = 'Login';
+  const [btnValue, setBtnValue] = useState('Login');
+  const [btnValue2, setBtnValue2] = useState('2nd Button');
+
+  function handleButtonClick() {
+    btnValue === 'Login' ? setBtnValue('Logout') : setBtnValue('Login');
+  }
+
+  function handleButton2Click() {
+    btnValue2 === '2nd Button'
+      ? setBtnValue2('Blah')
+      : setBtnValue2('2nd Button');
+  }
+
+  console.log('Hello, I am inside Header component');
+
+  useEffect(() => {
+    console.log('Hello, I am inside useEffect()');
+  }, [btnValue, btnValue2]);
+
+  useEffect(() => {
+    console.log('Hello, I am inside useEffect() with dependency');
+  }, []);
+
   return (
     <header>
       <div className='logo'>E-commerce App</div>
@@ -7,7 +33,7 @@ function Header() {
         <nav>
           <ul className='menu'>
             <li className='menu-item'>
-              <a href='/home'>Home</a>
+              <a href='/'>Home</a>
             </li>
             <li className='menu-item'>
               <a href='/men'>Men</a>
@@ -30,7 +56,12 @@ function Header() {
 
       <div className='header-right'>
         <input type='search' placeholder='Search for products...' />
-        <button className='login-btn'>Login</button>
+        <button onClick={handleButtonClick} className='login-btn'>
+          {btnValue}
+        </button>
+        <button onClick={handleButton2Click} className='login-btn'>
+          {btnValue2}
+        </button>
       </div>
     </header>
   );

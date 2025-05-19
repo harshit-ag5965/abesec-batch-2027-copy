@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 const ProductList = () => {
   let [productList, setProductList] = useState([]);
+  let [searchText, setSearchText] = useState("");
 
   const fetchData = async () => {
     const response = await fetch(
@@ -17,6 +18,10 @@ const ProductList = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    console.log('Hello');
+  }, []);
+
   function handleFilterButtonClick() {
     productList = productList.filter((product) => product.rating > 4);
     setProductList(productList);
@@ -25,6 +30,13 @@ const ProductList = () => {
   return (
     <section className='products'>
       <h1>Trending Products</h1>
+      {/* 
+        div className=search-filter
+            search input : onChange((e) => setSearchText(e.target.value))
+            button with name Search: onClick={handleSearchFilter}
+
+        div
+      */}
       <button onClick={handleFilterButtonClick} className='filter-button'>
         Filter Top Rated Products
       </button>
