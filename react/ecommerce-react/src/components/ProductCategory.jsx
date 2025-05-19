@@ -1,5 +1,5 @@
 const ProductCategory = (props) => {
-  const { name, image } = props.productCategoryDetails; // destructuring the object
+  const { name, image } = props.productCategory; // destructuring the object
   return (
     <>
       <div className='category'>
