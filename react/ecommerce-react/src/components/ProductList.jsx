@@ -1,6 +1,6 @@
-import ProductCard from './ProductCard';
+import ProductCard from "./ProductCard";
 // import products from '../data/products';
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 const ProductList = () => {
   let [productList, setProductList] = useState([]);
@@ -8,7 +8,7 @@ const ProductList = () => {
 
   const fetchData = async () => {
     const response = await fetch(
-      'https://682755e76b7628c5290ff8b1.mockapi.io/api/v1/products/products'
+      "https://682755e76b7628c5290ff8b1.mockapi.io/api/v1/products/products"
     );
     const products = await response.json();
     setProductList(products);
@@ -19,7 +19,7 @@ const ProductList = () => {
   }, []);
 
   useEffect(() => {
-    console.log('Hello');
+    console.log("Hello");
   }, []);
 
   function handleFilterButtonClick() {
@@ -28,7 +28,7 @@ const ProductList = () => {
   }
 
   return (
-    <section className='products'>
+    <section className="products">
       <h1>Trending Products</h1>
       {/* 
         div className=search-filter
@@ -37,10 +37,10 @@ const ProductList = () => {
 
         div
       */}
-      <button onClick={handleFilterButtonClick} className='filter-button'>
+      <button onClick={handleFilterButtonClick} className="filter-button">
         Filter Top Rated Products
       </button>
-      <div className='products-grid'>
+      <div className="products-grid">
         {productList.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

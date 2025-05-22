@@ -1,5 +1,5 @@
-import Header from './Header';
-import MenHeroSection from './men/MenHeroSection';
+import Header from "./Header";
+import MenHeroSection from "./men/MenHeroSection";
 
 const MenCategory = () => {
   return (
