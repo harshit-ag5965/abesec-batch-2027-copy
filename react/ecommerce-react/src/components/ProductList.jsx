@@ -1,28 +1,15 @@
+import useProductList from '../utils/useProductList';
 import ProductCard from './ProductCard';
-// import products from '../data/products';
 import { useEffect, useState } from 'react';
 
 const ProductList = () => {
-  let [productList, setProductList] = useState([]);
+  const productList = useProductList();
   const [filteredProductList, setFilteredProductList] = useState(productList);
   let [searchText, setSearchText] = useState('');
 
-  const fetchData = async () => {
-    const response = await fetch(
-      'https://682755e76b7628c5290ff8b1.mockapi.io/api/v1/products/products'
-    );
-    const products = await response.json();
-    setProductList(products);
-    setFilteredProductList(products);
-  };
-
   useEffect(() => {
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    console.log('Hello');
-  }, []);
+    setFilteredProductList(productList);
+  }, [productList]);
 
   function handleFilterButtonClick() {
     const filteredProducts = productList.filter(
