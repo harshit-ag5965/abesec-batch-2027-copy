@@ -1,10 +1,20 @@
-import { useState } from "react";
-import type { Todo } from "../types/todo";
+import { useEffect, useState } from 'react';
+import type { Todo } from '../types/todo';
 
 export function useTodos() {
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  const addTodo = (todo: Omit<Todo, "id">) => {
+  async function fetchTodos() {
+    const response = await fetch('http://localhost:8080/todos');
+    const fetchedTodos: Todo[] = await response.json();
+    setTodos(fetchedTodos);
+  }
+
+  useEffect(() => {
+    fetchTodos();
+  }, []);
+
+  const addTodo = (todo: Omit<Todo, 'id'>) => {
     const newTodo: Todo = {
       ...todo,
       id: Date.now(),

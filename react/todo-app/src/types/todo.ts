@@ -1,6 +1,6 @@
-export type TodoStatus = "Todo" | "In Progress" | "Blocker" | "Completed";
-export type TodoDifficulty = "Easy" | "Medium" | "Hard";
-export type TodoPriority = "P0" | "P1" | "P2";
+export type TodoStatus = 'Todo' | 'In Progress' | 'Blocker' | 'Completed';
+export type TodoDifficulty = 'Easy' | 'Medium' | 'Hard';
+export type TodoPriority = 'P0' | 'P1' | 'P2';
 
 export interface Todo {
   id: number;

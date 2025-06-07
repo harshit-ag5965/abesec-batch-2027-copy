@@ -1,41 +1,41 @@
-import { useState } from "react";
-import { useTodos } from "../hooks/useTodos";
-import { Button } from "../components/ui/button";
+import { useEffect, useState } from 'react';
+import { useTodos } from '../hooks/useTodos';
+import { Button } from '../components/ui/button';
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "../components/ui/card";
-import { Input } from "../components/ui/input";
-import { Textarea } from "../components/ui/textarea";
-import { Calendar } from "../components/ui/calendar";
+} from '../components/ui/card';
+import { Input } from '../components/ui/input';
+import { Textarea } from '../components/ui/textarea';
+import { Calendar } from '../components/ui/calendar';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../components/ui/select";
-import { Badge } from "../components/ui/badge";
-import { Pencil, Trash2, CheckCircle2 } from "lucide-react";
+} from '../components/ui/select';
+import { Badge } from '../components/ui/badge';
+import { Pencil, Trash2, CheckCircle2 } from 'lucide-react';
 import type {
   Todo,
   TodoStatus,
   TodoDifficulty,
   TodoPriority,
-} from "../types/todo";
-import { Label } from "@/components/ui/label";
+} from '../types/todo';
+import { Label } from '@/components/ui/label';
 
 export function ManageTodos() {
   const { todos, addTodo, updateTodo, deleteTodo } = useTodos();
-  const [formData, setFormData] = useState<Omit<Todo, "id">>({
-    title: "",
-    description: "",
-    status: "Todo",
+  const [formData, setFormData] = useState<Omit<Todo, 'id'>>({
+    title: '',
+    description: '',
+    status: 'Todo',
     dueDate: new Date(),
-    difficulty: "Medium",
-    priority: "P2",
+    difficulty: 'Medium',
+    priority: 'P2',
   });
   const [editingTodo, setEditingTodo] = useState<Todo | null>(null);
 
@@ -48,12 +48,12 @@ export function ManageTodos() {
       addTodo(formData);
     }
     setFormData({
-      title: "",
-      description: "",
-      status: "Todo",
+      title: '',
+      description: '',
+      status: 'Todo',
       dueDate: new Date(),
-      difficulty: "Medium",
-      priority: "P2",
+      difficulty: 'Medium',
+      priority: 'P2',
     });
   };
 
@@ -70,61 +70,61 @@ export function ManageTodos() {
   };
 
   const handleMarkComplete = (todo: Todo) => {
-    updateTodo(todo.id, { status: "Completed" });
+    updateTodo(todo.id, { status: 'Completed' });
   };
 
   const getPriorityColor = (priority: TodoPriority) => {
     switch (priority) {
-      case "P0":
-        return "bg-red-500 hover:bg-red-600";
-      case "P1":
-        return "bg-yellow-500 hover:bg-yellow-600";
-      case "P2":
-        return "bg-green-500 hover:bg-green-600";
+      case 'P0':
+        return 'bg-red-500 hover:bg-red-600';
+      case 'P1':
+        return 'bg-yellow-500 hover:bg-yellow-600';
+      case 'P2':
+        return 'bg-green-500 hover:bg-green-600';
     }
   };
 
   const getDifficultyColor = (difficulty: TodoDifficulty) => {
     switch (difficulty) {
-      case "Hard":
-        return "bg-red-500 hover:bg-red-600";
-      case "Medium":
-        return "bg-yellow-500 hover:bg-yellow-600";
-      case "Easy":
-        return "bg-green-500 hover:bg-green-600";
+      case 'Hard':
+        return 'bg-red-500 hover:bg-red-600';
+      case 'Medium':
+        return 'bg-yellow-500 hover:bg-yellow-600';
+      case 'Easy':
+        return 'bg-green-500 hover:bg-green-600';
     }
   };
 
   const getStatusColor = (status: TodoStatus) => {
     switch (status) {
-      case "Todo":
-        return "bg-gray-500 hover:bg-gray-600";
-      case "In Progress":
-        return "bg-blue-500 hover:bg-blue-600";
-      case "Blocker":
-        return "bg-red-500 hover:bg-red-600";
-      case "Completed":
-        return "bg-green-500 hover:bg-green-600";
+      case 'Todo':
+        return 'bg-gray-500 hover:bg-gray-600';
+      case 'In Progress':
+        return 'bg-blue-500 hover:bg-blue-600';
+      case 'Blocker':
+        return 'bg-red-500 hover:bg-red-600';
+      case 'Completed':
+        return 'bg-green-500 hover:bg-green-600';
     }
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div className='container mx-auto px-4 py-8'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-8'>
         {/* Form Section */}
         <div>
           <Card>
             <CardHeader>
               <CardTitle>
-                {editingTodo ? "Edit Todo" : "Add New Todo"}
+                {editingTodo ? 'Edit Todo' : 'Add New Todo'}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form onSubmit={handleSubmit} className='space-y-4'>
                 <div>
-                  <Label className="mb-2">Title</Label>
+                  <Label className='mb-2'>Title</Label>
                   <Input
-                    placeholder="Title"
+                    placeholder='Title'
                     value={formData.title}
                     onChange={(e) =>
                       setFormData({ ...formData, title: e.target.value })
@@ -132,18 +132,18 @@ export function ManageTodos() {
                   />
                 </div>
                 <div>
-                  <Label className="mb-2">Description</Label>
+                  <Label className='mb-2'>Description</Label>
                   <Textarea
-                    placeholder="Description"
+                    placeholder='Description'
                     value={formData.description}
                     onChange={(e) =>
                       setFormData({ ...formData, description: e.target.value })
                     }
                   />
                 </div>
-                <div className="flex gap-4">
-                  <div className="flex-1">
-                    <Label className="mb-2">Status</Label>
+                <div className='flex gap-4'>
+                  <div className='flex-1'>
+                    <Label className='mb-2'>Status</Label>
                     <Select
                       value={formData.status}
                       onValueChange={(value: TodoStatus) =>
@@ -151,18 +151,18 @@ export function ManageTodos() {
                       }
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select Status" />
+                        <SelectValue placeholder='Select Status' />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Todo">Todo</SelectItem>
-                        <SelectItem value="In Progress">In Progress</SelectItem>
-                        <SelectItem value="Blocker">Blocker</SelectItem>
-                        <SelectItem value="Completed">Completed</SelectItem>
+                        <SelectItem value='Todo'>Todo</SelectItem>
+                        <SelectItem value='In Progress'>In Progress</SelectItem>
+                        <SelectItem value='Blocker'>Blocker</SelectItem>
+                        <SelectItem value='Completed'>Completed</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="flex-1">
-                    <Label className="mb-2">Priority</Label>
+                  <div className='flex-1'>
+                    <Label className='mb-2'>Priority</Label>
                     <Select
                       value={formData.priority}
                       onValueChange={(value: TodoPriority) =>
@@ -170,17 +170,17 @@ export function ManageTodos() {
                       }
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select Priority" />
+                        <SelectValue placeholder='Select Priority' />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="P0">P0</SelectItem>
-                        <SelectItem value="P1">P1</SelectItem>
-                        <SelectItem value="P2">P2</SelectItem>
+                        <SelectItem value='P0'>P0</SelectItem>
+                        <SelectItem value='P1'>P1</SelectItem>
+                        <SelectItem value='P2'>P2</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="flex-1">
-                    <Label className="mb-2">Difficulty</Label>
+                  <div className='flex-1'>
+                    <Label className='mb-2'>Difficulty</Label>
                     <Select
                       value={formData.difficulty}
                       onValueChange={(value: TodoDifficulty) =>
@@ -188,28 +188,28 @@ export function ManageTodos() {
                       }
                     >
                       <SelectTrigger>
-                        <SelectValue placeholder="Select Difficulty" />
+                        <SelectValue placeholder='Select Difficulty' />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Easy">Easy</SelectItem>
-                        <SelectItem value="Medium">Medium</SelectItem>
-                        <SelectItem value="Hard">Hard</SelectItem>
+                        <SelectItem value='Easy'>Easy</SelectItem>
+                        <SelectItem value='Medium'>Medium</SelectItem>
+                        <SelectItem value='Hard'>Hard</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
                 </div>
                 <div>
-                  <Label className="mb-2">Due Date</Label>
+                  <Label className='mb-2'>Due Date</Label>
                   <Calendar
-                    mode="single"
+                    mode='single'
                     selected={formData.dueDate}
                     onSelect={(date) =>
                       date && setFormData({ ...formData, dueDate: date })
                     }
                   />
                 </div>
-                <Button type="submit" className="w-full">
-                  {editingTodo ? "Update Todo" : "Add Todo"}
+                <Button type='submit' className='w-full'>
+                  {editingTodo ? 'Update Todo' : 'Add Todo'}
                 </Button>
               </form>
             </CardContent>
@@ -217,29 +217,29 @@ export function ManageTodos() {
         </div>
 
         {/* Todo List Section */}
-        <div className="space-y-4">
+        <div className='space-y-4'>
           {todos.map((todo) => (
             <Card key={todo.id}>
-              <CardContent className="pt-6">
-                <div className="flex justify-between items-start">
-                  <div className="flex-1">
+              <CardContent className='pt-6'>
+                <div className='flex justify-between items-start'>
+                  <div className='flex-1'>
                     <h3
                       className={`font-semibold text-lg ${
-                        todo.status === "Completed"
-                          ? "line-through text-muted-foreground"
-                          : ""
+                        todo.status === 'Completed'
+                          ? 'line-through text-muted-foreground'
+                          : ''
                       }`}
                     >
                       {todo.title}
                     </h3>
                     <p
                       className={`text-muted-foreground ${
-                        todo.status === "Completed" ? "line-through" : ""
+                        todo.status === 'Completed' ? 'line-through' : ''
                       }`}
                     >
                       {todo.description}
                     </p>
-                    <div className="mt-2 flex flex-wrap gap-2">
+                    <div className='mt-2 flex flex-wrap gap-2'>
                       <Badge className={getPriorityColor(todo.priority)}>
                         {todo.priority}
                       </Badge>
@@ -250,37 +250,37 @@ export function ManageTodos() {
                         {todo.difficulty}
                       </Badge>
                       <Badge
-                        variant="outline"
-                        className="text-muted-foreground"
+                        variant='outline'
+                        className='text-muted-foreground'
                       >
-                        Due: {todo.dueDate.toLocaleDateString()}
+                        Due:
                       </Badge>
                     </div>
                   </div>
-                  <div className="flex space-x-2">
-                    {todo.status !== "Completed" && (
+                  <div className='flex space-x-2'>
+                    {todo.status !== 'Completed' && (
                       <Button
-                        variant="ghost"
-                        size="icon"
+                        variant='ghost'
+                        size='icon'
                         onClick={() => handleMarkComplete(todo)}
-                        className="text-green-500 hover:text-green-600"
+                        className='text-green-500 hover:text-green-600'
                       >
-                        <CheckCircle2 className="h-4 w-4" />
+                        <CheckCircle2 className='h-4 w-4' />
                       </Button>
                     )}
                     <Button
-                      variant="ghost"
-                      size="icon"
+                      variant='ghost'
+                      size='icon'
                       onClick={() => handleEdit(todo)}
                     >
-                      <Pencil className="h-4 w-4" />
+                      <Pencil className='h-4 w-4' />
                     </Button>
                     <Button
-                      variant="ghost"
-                      size="icon"
+                      variant='ghost'
+                      size='icon'
                       onClick={() => deleteTodo(todo.id)}
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Trash2 className='h-4 w-4' />
                     </Button>
                   </div>
                 </div>
