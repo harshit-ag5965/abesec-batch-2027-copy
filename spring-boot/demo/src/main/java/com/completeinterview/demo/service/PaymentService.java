@@ -1,5 +1,6 @@
 package com.completeinterview.demo.service;
 
+import com.completeinterview.demo.factory.PaymentGatewayFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,14 +11,11 @@ public class PaymentService {
         if(!validate()) {
             return "Invalid";
         }
-
-        if (mode.equals("phonepe")) {
-            return "Payment done via PhonePe";
-        } else if (mode.equals("gpay")) {
-            return "Payment done via GooglePay";
-        } else {
-            return "Invalid Payment Mode";
+        PaymentGateway paymentGateway = PaymentGatewayFactory.getPaymentGateway(mode);
+        if(paymentGateway == null) {
+            return "Invalid Mode";
         }
+        return paymentGateway.pay();
     }
 
     private boolean validate() {
