@@ -36,4 +36,10 @@ public class Product {
     private Boolean isFeatured;
 
     private LocalDateTime createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        System.out.println("Hello, I am printing my name because I want to do it before saving a new product to the database.");
+        this.createdAt = LocalDateTime.now();
+    }
 }
