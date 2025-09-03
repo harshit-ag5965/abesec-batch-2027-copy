@@ -32,6 +32,6 @@ class Solution {
 }
 ```
 
-#### Time Complexity: `O(2^N)`.
+#### Time Complexity: `O(3^N)`.
 
 #### Space Compelxity: `O(N)`, using stack to store activation records while performing recursion.
