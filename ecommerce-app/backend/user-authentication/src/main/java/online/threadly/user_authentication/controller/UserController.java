@@ -17,8 +17,9 @@ public class UserController {
     this.userService = userService;
   }
 
-  @PostMapping("/")
+  @PostMapping
   public ResponseEntity<User> createUser(@RequestBody User user) {
+    System.out.println("Received user: " + user.getName() +  " " + user.getEmail());
     User createdUser = this.userService.createUser(user);
     return ResponseEntity.ok(createdUser);
   }
