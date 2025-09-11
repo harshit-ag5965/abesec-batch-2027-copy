@@ -4,16 +4,16 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import online.threadly.user_authentication.model.User;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
-import javax.crypto.SecretKey;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import javax.crypto.SecretKey;
+import online.threadly.user_authentication.model.User;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
 @Service
 public class JwtService {
@@ -40,13 +40,17 @@ public class JwtService {
       claims.put("role", user.getRole().name());
     }
 
-    return Jwts.builder()
-        .claims(claims)
-        .subject(userDetails.getUsername())
-        .issuedAt(new Date(System.currentTimeMillis()))
-        .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
-        .signWith(getSignInKey())
-        .compact();
+    try {
+      return Jwts.builder()
+          .claims(claims)
+          .subject(userDetails.getUsername())
+          .issuedAt(new Date(System.currentTimeMillis()))
+          .expiration(new Date(System.currentTimeMillis() + jwtExpiration))
+          .signWith(getSignInKey())
+          .compact();
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -63,11 +67,23 @@ public class JwtService {
   }
 
   private Claims extractAllClaims(String token) {
-    return Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(token).getPayload();
+    try {
+      return Jwts.parser().verifyWith(getSignInKey()).build().parseSignedClaims(token).getPayload();
+    } catch (NoSuchAlgorithmException e) {
+      throw new RuntimeException(e);
+    }
   }
 
-  private SecretKey getSignInKey() {
+  private SecretKey getSignInKey() throws NoSuchAlgorithmException {
     byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-    return Keys.hmacShaKeyFor(keyBytes);
+    SecretKey key = Keys.hmacShaKeyFor(keyBytes);
+    System.out.println(
+        "JWT key len="
+            + keyBytes.length
+            + " sha256="
+            + java.util.HexFormat.of()
+                .formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(keyBytes))
+                .substring(0, 16));
+    return key;
   }
 }
