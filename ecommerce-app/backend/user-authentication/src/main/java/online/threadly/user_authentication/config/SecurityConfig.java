@@ -24,15 +24,16 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable) // disable CSRF for APIs (common in REST)
         .authorizeHttpRequests(
-            auth -> auth.requestMatchers("/health")
-                .permitAll() // allow without authentication
-                .requestMatchers("/api/v1/auth/**")
-                .permitAll() // 👈 signup allowed
-                .requestMatchers("/api/v1/users/**")
-                .authenticated() // require auth
-                .anyRequest()
-                .denyAll() // deny everything else (optional, for safety)
-        )
+            auth ->
+                auth.requestMatchers("/health")
+                    .permitAll() // allow without authentication
+                    .requestMatchers("/api/v1/auth/**")
+                    .permitAll() // 👈 signup, login allowed
+                    .requestMatchers("/api/v1/users/**")
+                    .authenticated() // require auth
+                    .anyRequest()
+                    .denyAll() // deny everything else (optional, for safety)
+            )
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .httpBasic(Customizer.withDefaults());
 
