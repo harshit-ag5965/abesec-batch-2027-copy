@@ -4,6 +4,7 @@ import online.threadly.user_authentication.dao.AuthResponse;
 import online.threadly.user_authentication.dao.SignUpRequest;
 import online.threadly.user_authentication.service.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 public class AuthController {
 
-    private AuthService authService;
+  private AuthService authService;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
-    }
+  public AuthController(AuthService authService) {
+    this.authService = authService;
+  }
 
-    @PostMapping("/signup")
-    public ResponseEntity<AuthResponse> registerUser(@RequestBody SignUpRequest signUpRequest) {
-        return ResponseEntity.ok(authService.registerUser(signUpRequest));
-    }
+  @PostMapping("/signup")
+  public ResponseEntity<AuthResponse> registerUser(@RequestBody SignUpRequest signUpRequest) {
+    return ResponseEntity.ok(authService.registerUser(signUpRequest));
+  }
 }
