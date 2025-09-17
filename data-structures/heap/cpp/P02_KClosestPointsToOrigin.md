@@ -1,6 +1,6 @@
 ### LeetCode Problem Link: [973. K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/description)
 
-```java
+```cpp
 class Point {
 public:
     int distance;

@@ -1,8 +1,6 @@
 ### LeetCode Problem Link: [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
 
-### Solution 1
-
-```java
+```cpp
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {

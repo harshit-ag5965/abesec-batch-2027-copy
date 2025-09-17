@@ -1,6 +1,6 @@
 ### LeetCode Problem Link: [1046. Last Stone Weight](https://leetcode.com/problems/last-stone-weight/description)
 
-```java
+```cpp
 class Solution {
 public:
     int lastStoneWeight(vector<int>& stones) {
