@@ -29,7 +29,7 @@ services:
     networks:
       - threadly-network
 
-  threadly-product-service:
+  threadly-user-authentication-service:
     image: aakashverma1124/threadly-user-authentication-service
     container_name: threadly-user-authentication-service
     ports:
