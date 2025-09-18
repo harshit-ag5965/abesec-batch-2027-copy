@@ -29,8 +29,37 @@ services:
     networks:
       - threadly-network
 
+  threadly-product-service:
+    image: aakashverma1124/threadly-user-authentication-service
+    container_name: threadly-user-authentication-service
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://threadly-users-db:5432/threadly-users-db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - threadly-users-db
+    networks:
+      - threadly-network
+
+  threadly-users-db:
+    image: postgres:16-alpine
+    container_name: threadly-users-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: threadly-users-db
+    ports:
+      - "5441:5432"
+    volumes:
+      - threadly-users-db-data:/var/lib/postgresql/data
+    networks:
+      - threadly-network
+
 volumes:
   threadly-product-db-data:
+  threadly-users-db-data:
 
 networks:
   threadly-network:
