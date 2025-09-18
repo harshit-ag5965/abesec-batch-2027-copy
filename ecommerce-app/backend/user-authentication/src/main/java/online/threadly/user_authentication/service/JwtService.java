@@ -13,9 +13,9 @@ import javax.crypto.SecretKey;
 import online.threadly.user_authentication.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
-@Service
+@Component
 public class JwtService {
 
   // openssl rand -base64 64
