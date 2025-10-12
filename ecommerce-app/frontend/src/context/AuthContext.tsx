@@ -1,10 +1,18 @@
-import { signIn } from "@/api/auth";
+import { signIn, getUserData } from "@/api/apis";
 import type { SignInRequest } from "@/types/auth";
 import type { UserSession } from "@/types/user-session";
-import { createContext, useContext, useState, type ReactNode } from "react";
+import type { User } from "@/types/user";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode,
+} from "react";
 
 interface AuthContextType {
   userSession: UserSession | null;
+  user: User | null;
   isAuthenticated: boolean;
   isAdmin: boolean;
 
@@ -28,6 +36,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const storedUser = localStorage.getItem("userSession");
     return storedUser ? JSON.parse(storedUser) : null;
   });
+  const [user, setUser] = useState<User | null>(null);
+
+  // Fetch user data when component mounts if user is already authenticated
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (userSession && !user) {
+        try {
+          const userResponse = await getUserData();
+          setUser(userResponse.data);
+        } catch (error) {
+          console.error("Failed to fetch user data on mount:", error);
+        }
+      }
+    };
+
+    fetchUserData();
+  }, [userSession, user]);
 
   const login = async (signInRequest: SignInRequest): Promise<boolean> => {
     try {
@@ -35,6 +60,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const { token } = response.data;
       setUserSession({ token });
       localStorage.setItem("userSession", JSON.stringify({ token }));
+
+      // Fetch user data after successful login
+      try {
+        const userResponse = await getUserData();
+        setUser(userResponse.data);
+      } catch (userError) {
+        console.error("Failed to fetch user data:", userError);
+        // Don't throw error here, login was successful
+      }
+
       return true;
     } catch (error) {
       throw error;
@@ -43,11 +78,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     setUserSession(null);
+    setUser(null);
     localStorage.removeItem("userSession");
   };
 
   const value = {
     userSession,
+    user,
     isAuthenticated: !!userSession,
     isAdmin: userSession
       ? getRoleFromToken(userSession.token) === "ADMIN"

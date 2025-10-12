@@ -1,3 +1,4 @@
+import Navbar from "@/components/layout/Navbar";
 import { useAuth } from "@/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +11,7 @@ const Dashboard = () => {
   }
   return (
     <div>
-      <h1>Welcome to Dashboard!</h1>
+      <Navbar />
     </div>
   );
 };

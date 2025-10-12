@@ -10,35 +10,35 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useAuth } from "@/context/AuthContext";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
-export function SignIn() {
+export function SignUp() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleSignUp = async () => {
     try {
-      if (!email || !password) {
+      if (!name || !email || !password) {
         toast.error("Please fill in all fields");
         return;
       }
 
-      const success = await login({ email, password });
-      if (success) {
-        toast.success("Login successful! Welcome to Threadly");
-        navigate("/dashboard");
-      } else {
-        toast.error("Invalid credentials. Please try again.");
-        navigate("/");
+      if (password.length < 6) {
+        toast.error("Password must be at least 6 characters long");
+        return;
       }
+
+      // For now, we'll just show a success message and redirect
+      // In a real app, you'd call your signup API here
+      toast.success("Account created successfully! Welcome to Threadly");
+      navigate("/signin");
     } catch (error) {
-      toast.error("Login failed. Please check your credentials and try again.");
-      console.error("Login error:", error);
+      toast.error("Signup failed. Please try again.");
+      console.error("Signup error:", error);
     }
   };
 
@@ -46,13 +46,13 @@ export function SignIn() {
     <div className="flex justify-center items-center min-h-[80vh]">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Sign up to threadly</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your name, email below to signup on threadly
           </CardDescription>
           <CardAction>
-            <Link to="/signup">
-              <Button variant="link">Sign Up</Button>
+            <Link to="/signin">
+              <Button variant="link">Sign In</Button>
             </Link>
           </CardAction>
         </CardHeader>
@@ -60,12 +60,23 @@ export function SignIn() {
           <form>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  type="text"
+                  placeholder="John"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  value={email}
                   id="email"
                   type="email"
                   placeholder="m@example.com"
+                  value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
@@ -73,18 +84,12 @@ export function SignIn() {
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                  >
-                    Forgot your password?
-                  </a>
                 </div>
                 <Input
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
                   id="password"
                   type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </div>
@@ -92,8 +97,8 @@ export function SignIn() {
           </form>
         </CardContent>
         <CardFooter className="flex-col gap-2">
-          <Button onClick={handleLogin} type="submit" className="w-full">
-            Login
+          <Button onClick={handleSignUp} type="submit" className="w-full">
+            Sign Up
           </Button>
           <Button variant="outline" className="w-full">
             Login with Google
