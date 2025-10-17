@@ -1,8 +1,7 @@
 spring:
   application:
-    name: UserAuthenticationService
+    name: threadly-user-authentication-service
   profiles:
     active: local
-
 server:
   port: 8083

@@ -76,14 +76,6 @@ public class JwtService {
 
   private SecretKey getSignInKey() throws NoSuchAlgorithmException {
     byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-    SecretKey key = Keys.hmacShaKeyFor(keyBytes);
-    System.out.println(
-        "JWT key len="
-            + keyBytes.length
-            + " sha256="
-            + java.util.HexFormat.of()
-                .formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(keyBytes))
-                .substring(0, 16));
-    return key;
+    return Keys.hmacShaKeyFor(keyBytes);
   }
 }

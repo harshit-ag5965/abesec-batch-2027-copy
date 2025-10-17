@@ -16,3 +16,8 @@ application:
     jwt:
       secret-key: bZ1C/BhnIVRROhmEch4+xyoc1wc/aI9z1J1+gxRp5qACifGl3iVz3DczLoCZz382pFsjzlXwnLvMzKaf8sPjyA==
       expiration: 86400000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

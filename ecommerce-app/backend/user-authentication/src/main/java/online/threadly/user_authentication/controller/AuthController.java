@@ -5,10 +5,7 @@ import online.threadly.user_authentication.dao.SignInRequest;
 import online.threadly.user_authentication.dao.SignUpRequest;
 import online.threadly.user_authentication.service.AuthService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -26,6 +23,7 @@ public class AuthController {
   }
 
   @PostMapping("/login")
+  @CrossOrigin
   public ResponseEntity<AuthResponse> loginUser(@RequestBody SignInRequest signInRequest) {
     return ResponseEntity.ok(authService.authenticate(signInRequest));
   }

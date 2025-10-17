@@ -1,6 +1,9 @@
 version: "3.8"
 
 services:
+  ####################################################
+  ######### product specific services starts #########
+  ####################################################
   threadly-product-service:
     image: aakashverma1124/threadly-product-service
     container_name: threadly-product-service
@@ -12,6 +15,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: postgres
     depends_on:
       - threadly-product-db
+      - threadly-service-discovery
     networks:
       - threadly-network
 
@@ -28,9 +32,65 @@ services:
       - threadly-product-db-data:/var/lib/postgresql/data
     networks:
       - threadly-network
+  ####################################################
+  ########## product specific services ends ##########
+  ####################################################
+
+  ####################################################
+  ########## user specific services starts ###########
+  ####################################################
+
+  threadly-user-authentication-service:
+    image: aakashverma1124/threadly-user-authentication-service
+    container_name: threadly-user-authentication-service
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://threadly-users-db:5432/threadly-users-db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - threadly-users-db
+      - threadly-service-discovery
+    networks:
+      - threadly-network
+
+  threadly-users-db:
+    image: postgres:16-alpine
+    container_name: threadly-users-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: threadly-users-db
+    ports:
+      - "5441:5432"
+    volumes:
+      - threadly-users-db-data:/var/lib/postgresql/data
+    networks:
+      - threadly-network
+
+  ####################################################
+  ############ user specific services ends ###########
+  ####################################################
+
+  ####################################################
+  ############# service discovery starts #############
+  ####################################################
+  threadly-service-discovery:
+    image: aakashverma1124/service-discovery
+    container_name: threadly-service-discovery
+    ports:
+      - "8761:8761"
+    networks:
+      - threadly-network
+
+  ####################################################
+  ############## service discovery end ###############
+  ####################################################
 
 volumes:
   threadly-product-db-data:
+  threadly-users-db-data:
 
 networks:
   threadly-network:
